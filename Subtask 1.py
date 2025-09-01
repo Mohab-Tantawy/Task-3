@@ -17,6 +17,8 @@ def convolve(image, kernel):
     """
 
     # Start by flipping the kernel horizontally then vertically (related to the mathematical proof of convolution)
+    kernal_flipH = np.fliplr(kernel)
+    kernal_flipped = np.flipud(kernal_flipH)
     # Pad the image
     # Perform convolution using sliding window method, dot product is not used here
     ... # remove comments and implement functionality

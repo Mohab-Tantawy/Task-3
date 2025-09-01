@@ -35,12 +35,13 @@ def convolve(image, kernel):
 
     hight, width = image.shape
     output = np.zeros((hight, width))
-    
 
-    # Perform convolution using sliding window method, dot product is not used here
-    ... # remove comments and implement functionality
-
-
+    #convulution operation
+    for y in range (hight):
+        for x in range (width):
+            region = padded_image[y:y+kernal_hight, x:x+kernal_width]
+            output[y, x] = np.sum(region * kernal_flipped)
+    return output
 # Take notice that OpenCV handles the image as a numpy array when opening it
 img = cv2.imread('image.jpg', cv2.IMREAD_GRAYSCALE)
 fig, axes = plt.subplots(2, 2, figsize=(8, 8))

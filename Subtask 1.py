@@ -9,12 +9,6 @@ import cv2
 
 def convolve(image, kernel):
 
-    """
-    Apply a convolution to an image using a given kernel.
-
-    Your code should handle different kernel sizes - not necessarily 3x3 kernels
-    """
-
     # Start by flipping the kernel horizontally then vertically (related to the mathematical proof of convolution)
     kernal_flipH = np.fliplr(kernel)
     kernal_flipped = np.flipud(kernal_flipH)
@@ -34,7 +28,7 @@ def convolve(image, kernel):
     padded_image = np.pad(image , ((pad_top, pad_bottom), (pad_left, pad_right)), mode='edge')
 
     hight, width = image.shape
-    output = np.zeros((hight, width))
+    output = np.zeros((hight, width), dtype=np.float32)
 
     #convulution operation
     for y in range (hight):
@@ -46,18 +40,22 @@ def convolve(image, kernel):
 img = cv2.imread('image.jpg', cv2.IMREAD_GRAYSCALE)
 fig, axes = plt.subplots(2, 2, figsize=(8, 8))
 
+# Original image
 axes[0, 0].imshow(img, cmap='gray')
 axes[0, 0].set_title('Original Image')
 axes[0, 0].axis('off')
-
+# Box filter (blur)
 axes[0, 1].imshow(convolve(img, np.ones((5, 5)) / 25), cmap='gray')
 axes[0, 1].set_title('Box Filter')
 axes[0, 1].axis('off')
-
+# Horizontal Sobel filter (detects vertical edges)
 axes[1, 0].imshow(convolve(img, np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])), cmap='gray')
 axes[1, 0].set_title('Horizontal Sobel Filter')
 axes[1, 0].axis('off')
-
+# Vertical Sobel filter (detects horizontal edges)
 axes[1, 1].imshow(convolve(img, np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]])), cmap='gray')
 axes[1, 1].set_title('Vertical Sobel Filter')
 axes[1, 1].axis('off')
+
+plt.tight_layout()
+plt.show()

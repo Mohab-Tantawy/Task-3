@@ -7,7 +7,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 
-
 def convolve(image, kernel):
 
     """
@@ -20,6 +19,24 @@ def convolve(image, kernel):
     kernal_flipH = np.fliplr(kernel)
     kernal_flipped = np.flipud(kernal_flipH)
     # Pad the image
+    kernal_hight, kernal_width = kernal_flipped.shape
+    pad_top = kernal_hight // 2
+    pad_bottom = kernal_hight // 2
+    pad_left = kernal_width // 2
+    pad_right = kernal_width // 2
+
+    #edge case handling
+    if kernal_hight % 2 == 0:
+        pad_bottom = max (0, pad_bottom - 1)
+    if kernal_width % 2 == 0:
+        pad_right = max (0, pad_right - 1)
+    
+    padded_image = np.pad(image , ((pad_top, pad_bottom), (pad_left, pad_right)), mode='edge')
+
+    hight, width = image.shape
+    output = np.zeros((hight, width))
+    
+
     # Perform convolution using sliding window method, dot product is not used here
     ... # remove comments and implement functionality
 

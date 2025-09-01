@@ -37,7 +37,8 @@ def convolve(image, kernel):
             output[y, x] = np.sum(region * kernal_flipped)
     return output
 # Take notice that OpenCV handles the image as a numpy array when opening it
-img = cv2.imread('image.jpg', cv2.IMREAD_GRAYSCALE)
+
+img = cv2.imread('shapes.jpg', cv2.IMREAD_GRAYSCALE)
 fig, axes = plt.subplots(2, 2, figsize=(8, 8))
 
 # Original image

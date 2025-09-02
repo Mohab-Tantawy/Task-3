@@ -4,10 +4,15 @@ import cv2
 # Take notice that OpenCV handles the image as a numpy array when opening it 
 img = cv2.imread('shapes.jpg')
 out = img.copy()
-
+hsv_image = cv2.cvtColor(img, cv2.COLOR_BGR2HSV) #hsv
 
 # Make a mask for each color (red, blue, black)
-# Take care that the default colorspace that OpenCV opens an image in is BGR not RGB
+# blue mask
+blue_mask = cv2.inRange(hsv_image, np.array([100, 50, 50]), np.array([130, 255, 255]))
+#red mask 
+red_mask = cv2.inRange(hsv_image, np.array([0, 50, 50]), np.array([10, 255, 255]))
+#black mask
+black_mask = cv2.inRange(hsv_image, np.array([0, 0, 0]), np.array([180, 255, 30]))
 
 # Change all pixels that fit within the blue mask to black
 # Change all pixels that fit within the red mask to blue

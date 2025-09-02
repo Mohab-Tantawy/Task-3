@@ -7,10 +7,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 
-def convolve(image, kernel):
+def convolve(image, kernal):
 
     # Start by flipping the kernel horizontally then vertically (related to the mathematical proof of convolution)
-    kernal_flipH = np.fliplr(kernel)
+    if (len(kernal.shape)!=2):
+        raise ValueError ("kernal must be 2D")
+        exit()
+    elif (kernal.shape[0] % 2 == 0 or kernal.shape[1] % 2 == 0):
+        raise ValueError("kernal must be odd")
+        exit()
+    kernal_flipH = np.fliplr(kernal)
     kernal_flipped = np.flipud(kernal_flipH)
     # Pad the image
     kernal_hight, kernal_width = kernal_flipped.shape
@@ -38,7 +44,7 @@ def convolve(image, kernel):
     return output
 # Take notice that OpenCV handles the image as a numpy array when opening it
 
-img = cv2.imread('shapes.jpg', cv2.IMREAD_GRAYSCALE)
+img = cv2.imread('image.jpg', cv2.IMREAD_GRAYSCALE)
 fig, axes = plt.subplots(2, 2, figsize=(8, 8))
 
 # Original image

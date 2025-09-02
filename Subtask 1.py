@@ -43,6 +43,20 @@ def convolve(image, kernal):
             output[y, x] = np.sum(region * kernal_flipped)
     return output
 # Take notice that OpenCV handles the image as a numpy array when opening it
+def gaussianFilter(size , segma = 1.0):
+    if size % 2 == 0:
+        raise ValueError("size must be odd")
+        exit()
+    ax = np.linspace(-(size // 2), size // 2, size)
+    xx ,yy = np.meshgrid(ax, ax)
+
+    kernel = np.exp(-(xx**2 + yy**2) / (2 * segma**2))
+
+    kernel  = kernel / np.sum(kernel)
+    return kernel
+
+def medianFilter(image , kernel):
+    pass
 
 img = cv2.imread('image.jpg', cv2.IMREAD_GRAYSCALE)
 fig, axes = plt.subplots(2, 2, figsize=(8, 8))
